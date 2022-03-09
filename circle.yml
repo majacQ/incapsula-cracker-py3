@@ -51,6 +51,7 @@ workflows:
   version: 2
   build_and_test:
     jobs:
+  <<<<<<< dependabot/pip/requests-2.20.0
       - build-p27:
           filters:
             branches:
@@ -59,3 +60,7 @@ workflows:
           filters:
             branches:
               ignore: gh-pages
+  =======
+      - build-p27
+      - build-p34
+  >>>>>>> feature-parsers

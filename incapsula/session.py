@@ -1,7 +1,10 @@
 from __future__ import absolute_import
 
+  <<<<<<< dependabot/pip/requests-2.20.0
 import re
 import time
+  =======
+  >>>>>>> feature-parsers
 import logging
 import datetime
 import random
@@ -164,7 +167,11 @@ class IncapSession(Session):
             expires = round((d - datetime.datetime.utcfromtimestamp(0)).total_seconds() * 1000)
         self.cookies.set(name, value, domain=domain, path='/', expires=expires)
 
+  <<<<<<< dependabot/pip/requests-2.20.0
     def _set_incap_cookie(self, v_array, domain='', sl=None):
+  =======
+    def _set_incap_cookie(self, v_array, domain=''):
+  >>>>>>> feature-parsers
         """
         Calculate the final value for the cookie needed to bypass incapsula.
 
@@ -177,6 +184,7 @@ class IncapSession(Session):
                     for (var i = 0; i < cookies.length; i++) {
                         digests[i] = simpleDigest((vArray) + cookies[i]);
                     }
+  <<<<<<< dependabot/pip/requests-2.20.0
                     var sl = "jcMQV+ffvh2BmAcW8nq2a1HZRZcsB5poBUV2Ew==";
                     var dd = digests.join();
                     var asl = '';
@@ -184,6 +192,9 @@ class IncapSession(Session):
                         asl += (sl.charCodeAt(i) + dd.charCodeAt(i % dd.length)).toString(16);
                     }
                     res = vArray + ",digest=" + dd + ",s=" + asl;
+  =======
+                    res = vArray + ",digest=" + (digests.join());
+  >>>>>>> feature-parsers
                 } catch (e) {
                     res = vArray + ",digest=" + (encodeURIComponent(e.toString()));
                 }
@@ -198,6 +209,7 @@ class IncapSession(Session):
         digests = []
         for cookie_val in cookies:
             digests.append(simple_digest(v_array + cookie_val))
+  <<<<<<< dependabot/pip/requests-2.20.0
 
         dd = ','.join(digests)
 
@@ -205,6 +217,9 @@ class IncapSession(Session):
 
         res = v_array + ',digest=' + dd + ",s=" + asl
 
+  =======
+        res = v_array + ',digest=' + ','.join(digests)
+  >>>>>>> feature-parsers
         logger.debug('setting ___utmvc cookie to {}'.format(res))
         self._create_cookie('___utmvc', res, 20, domain=domain)
 
@@ -224,6 +239,7 @@ class IncapSession(Session):
         if iframe_resource.is_blocked():
             raise RecaptchaBlocked(iframe_response, 'resource blocked by re-captcha')
 
+  <<<<<<< dependabot/pip/requests-2.20.0
     def _get_incapsula_b(self, incapsula_script_url):
         """
         Get the b var value, which is the obfuscated JS code of incapsula.
@@ -287,21 +303,30 @@ class IncapSession(Session):
         return asl
 
     def _apply_cookies(self, original_url, incapsula_script_url):
+  =======
+    def _apply_cookies(self, original_url):
+  >>>>>>> feature-parsers
         """
         Set the session cookies and send the necessary GET request to "apply" the cookies.
 
         :param original_url: The url of the original request.
             Needed to determine the scheme and host of the domain to send the request to apply the cookies.
+  <<<<<<< dependabot/pip/requests-2.20.0
         :param incapsula_script_url: The url where the b var can be found.
         :return:
         """
 
+  =======
+        :return:
+        """
+  >>>>>>> feature-parsers
         # Split the url so that no matter what site is being requested, we can figure out the host of
         # the incapsula resource.
         split = urlsplit(original_url)
         scheme = split.scheme
         host = split.netloc
 
+  <<<<<<< dependabot/pip/requests-2.20.0
         b = self._get_incapsula_b(scheme + '://' + host + incapsula_script_url)
 
         sl = self._get_incapsula_sl(b)
@@ -311,6 +336,11 @@ class IncapSession(Session):
             self._set_incap_cookie(test(), self.cookie_domain or host, sl)
 
             self.get(self.get_incapsula_resource_url(scheme, host), bypass_crack=True)
+  =======
+        # Set the cookie then send request to incap resource to "apply" cookie.
+        self._set_incap_cookie(test(), self.cookie_domain or host)
+        self.get(self.get_incapsula_resource_url(scheme, host), bypass_crack=True)
+  >>>>>>> feature-parsers
 
     def get_incapsula_resource_url(self, scheme, host):
         """
@@ -351,7 +381,11 @@ class IncapSession(Session):
             self._raise_for_recaptcha(resource)
 
             # Apply cookies and send GET request to apply them.
+  <<<<<<< dependabot/pip/requests-2.20.0
             self._apply_cookies(org.url, resource.incapsula_script_url)
+  =======
+            self._apply_cookies(org.url)
+  >>>>>>> feature-parsers
 
             # Recursively call crack() again since if the request isn't blocked after the above cookie-set and request,
             # then it will just return the unblocked resource.
