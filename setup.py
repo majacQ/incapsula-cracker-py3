@@ -6,7 +6,7 @@ version = '0.1.8.1'
 
 REQUIREMENTS = [
     'requests',
-    'bs4',
+    'beautifulsoup4',
     'six'
 ]
 
@@ -15,7 +15,7 @@ setup(
     version=version,
     packages=['incapsula'],
     url='https://github.com/ziplokk1/incapsula-cracker-py3',
-    license='LICENSE.txt',
+    license='Unlicense',
     author='Mark Sanders',
     author_email='sdscdeveloper@gmail.com',
     install_requires=REQUIREMENTS,
