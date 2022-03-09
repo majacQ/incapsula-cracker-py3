@@ -126,7 +126,10 @@ class WebsiteResourceParser(ResourceParser):
         super(WebsiteResourceParser, self).__init__(response)
 
     @property
+  <<<<<<< main
+  =======
   <<<<<<< dependabot/pip/requests-2.20.0
+  >>>>>>> feature-parsers
     def incapsula_script_url(self):
         """
         The script url to get the b var value
@@ -140,7 +143,10 @@ class WebsiteResourceParser(ResourceParser):
         return None
 
     @property
+  <<<<<<< main
   =======
+  =======
+  >>>>>>> feature-parsers
   >>>>>>> feature-parsers
     def robots_meta(self):
         """
